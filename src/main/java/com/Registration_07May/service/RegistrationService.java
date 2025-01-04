@@ -14,19 +14,18 @@ public class RegistrationService {
         this.registrationRepository = registrationRepository;
     }
 
+    //Post Registration
     public Registration createRegistration(Registration reg){
-        Registration save = registrationRepository.save(reg);
-
-//        Registration registration = new Registration();
-//        registration.setName(reg.getName());
-//        registration.setEmail(reg.getEmail());
-//        registration.setMobile(reg.getMobile());
-//        Registration save = registrationRepository.save(registration);
-        return  save;
+        return registrationRepository.save(reg);
     }
 
+    // Delete Registration
+    public void deleteRegistration(long id){
+        registrationRepository.deleteById(id);
+    }
+
+    // get Registration
     public List<Registration> getRegistrationList(){
-        List<Registration> registrationList = registrationRepository.findAll();
-        return registrationList;
+        return registrationRepository.findAll();
     }
 }

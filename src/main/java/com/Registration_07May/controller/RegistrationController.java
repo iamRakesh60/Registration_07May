@@ -22,6 +22,12 @@ public class RegistrationController {
         return new ResponseEntity<>(reg,HttpStatus.CREATED);
     }
 
+    @DeleteMapping
+    private ResponseEntity<String> deleteRegistration(@RequestParam long id){
+        registrationService.deleteRegistration(id);
+        return new ResponseEntity<>("Registration is deleted", HttpStatus.OK);
+    }
+
     @GetMapping
     private ResponseEntity <List<Registration>> registrationList(){
         List<Registration> registrationList = registrationService.getRegistrationList();
