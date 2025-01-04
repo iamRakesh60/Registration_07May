@@ -2,9 +2,9 @@ package com.Registration_07May.controller;
 
 import com.Registration_07May.entity.Registration;
 import com.Registration_07May.service.RegistrationService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,9 +16,15 @@ public class RegistrationController {
         this.registrationService = registrationService;
     }
 
+    @PostMapping
+    private ResponseEntity<Registration> createRegistration(@RequestBody Registration registration){
+        Registration reg = registrationService.createRegistration(registration);
+        return new ResponseEntity<>(reg,HttpStatus.CREATED);
+    }
+
     @GetMapping
-    private List<Registration> registrationList(){
+    private ResponseEntity <List<Registration>> registrationList(){
         List<Registration> registrationList = registrationService.getRegistrationList();
-        return registrationList;
+        return new ResponseEntity<>(registrationList, HttpStatus.FOUND);
     }
 }

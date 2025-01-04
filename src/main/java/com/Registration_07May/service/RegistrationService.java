@@ -14,6 +14,17 @@ public class RegistrationService {
         this.registrationRepository = registrationRepository;
     }
 
+    public Registration createRegistration(Registration reg){
+        Registration save = registrationRepository.save(reg);
+
+//        Registration registration = new Registration();
+//        registration.setName(reg.getName());
+//        registration.setEmail(reg.getEmail());
+//        registration.setMobile(reg.getMobile());
+//        Registration save = registrationRepository.save(registration);
+        return  save;
+    }
+
     public List<Registration> getRegistrationList(){
         List<Registration> registrationList = registrationRepository.findAll();
         return registrationList;
