@@ -1,6 +1,7 @@
 package com.Registration_07May.controller;
 
 import com.Registration_07May.entity.Registration;
+import com.Registration_07May.payload.RegistrationDto;
 import com.Registration_07May.service.RegistrationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,8 @@ public class RegistrationController {
     }
 
     @PostMapping
-    private ResponseEntity<Registration> createRegistration(@RequestBody Registration registration){
-        Registration reg = registrationService.createRegistration(registration);
+    private ResponseEntity<RegistrationDto> createRegistration(@RequestBody RegistrationDto dto){
+        RegistrationDto reg = registrationService.createRegistration(dto);
         return new ResponseEntity<>(reg,HttpStatus.CREATED);
     }
 
@@ -33,4 +34,17 @@ public class RegistrationController {
         List<Registration> registrationList = registrationService.getRegistrationList();
         return new ResponseEntity<>(registrationList, HttpStatus.FOUND);
     }
+
+    @PutMapping("{id}")
+    private ResponseEntity<Registration> updateRegistration(@PathVariable long id, @RequestBody Registration registration) {
+        try {
+            Registration updatedReg = registrationService.updateRegistration(id, registration);
+            return new ResponseEntity<>(updatedReg, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

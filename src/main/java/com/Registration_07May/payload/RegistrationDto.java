@@ -1,28 +1,20 @@
-package com.Registration_07May.entity;
+package com.Registration_07May.payload;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
-@Table(name = "registrationList")
-public class Registration {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class RegistrationDto {
 
     private String name;
-
     private String email;
-
     private String mobile;
+    private String pan;
 
-    public Long getId() {
-        return id;
+    public String getPan() {
+        return pan;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPan(String pan) {
+        this.pan = pan;
     }
 
     public String getName() {

@@ -1,4 +1,4 @@
-package com.Registration_07May.registration;
+package com.Registration_07May.repository;
 
 import com.Registration_07May.entity.Registration;
 import org.springframework.data.jpa.repository.JpaRepository;
