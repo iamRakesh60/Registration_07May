@@ -1,10 +1,11 @@
 package com.Registration_07May.service;
 
-import com.Registration_07May.entity.KYC;
+//import com.Registration_07May.entity.KYC;
 import com.Registration_07May.entity.Registration;
 import com.Registration_07May.payload.RegistrationDto;
-import com.Registration_07May.repository.KYCRepository;
+//import com.Registration_07May.repository.KYCRepository;
 import com.Registration_07May.repository.RegistrationRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,12 +13,15 @@ import java.util.List;
 @Service
 public class RegistrationService {
     private RegistrationRepository registrationRepository;
-    private KYCRepository kycRepository;
+    private ModelMapper modelMapper;
 
-    public RegistrationService(RegistrationRepository registrationRepository, KYCRepository kycRepository) {
+    public RegistrationService(RegistrationRepository registrationRepository, ModelMapper modelMapper) {
         this.registrationRepository = registrationRepository;
-        this.kycRepository = kycRepository;
+        this.modelMapper = modelMapper;
     }
+//private KYCRepository kycRepository;
+
+
 
     //Post Registration
     public RegistrationDto createRegistration(RegistrationDto dto){
@@ -35,33 +39,21 @@ public class RegistrationService {
     }
 
     Registration mapToEntity(RegistrationDto dto){
-        Registration reg = new Registration();
-        reg.setName(dto.getName());
-        reg.setEmail(dto.getEmail());
-        reg.setMobile(dto.getMobile());
+        Registration reg = modelMapper.map(dto, Registration.class);
+//        Registration reg = new Registration();
+//        reg.setName(dto.getName());
+//        reg.setEmail(dto.getEmail());
+//        reg.setMobile(dto.getMobile());
         return reg;
     }
     RegistrationDto mapToEntity(Registration registration){
-        RegistrationDto dto = new RegistrationDto();
-        dto.setName(registration.getName());
-        dto.setEmail(registration.getEmail());
-        dto.setMobile(registration.getMobile());
+        RegistrationDto dto = modelMapper.map(registration, RegistrationDto.class);
+//        RegistrationDto dto = new RegistrationDto();
+//        dto.setName(registration.getName());
+//        dto.setEmail(registration.getEmail());
+//        dto.setMobile(registration.getMobile());
         return dto;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
