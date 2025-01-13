@@ -83,5 +83,4 @@ public class RegistrationService {
         // Save the updated registration
         return registrationRepository.save(existingReg);
     }
-
 }
