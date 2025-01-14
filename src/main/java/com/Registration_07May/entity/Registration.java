@@ -1,21 +1,35 @@
 package com.Registration_07May.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "registrationList")
 public class Registration {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is mandatory")
+    //@Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
     private String name;
 
+    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email should be valid")
     private String email;
 
+    @NotBlank(message = "Mobile number is mandatory")
+//    @Pattern(
+//            regexp = "^[0-9]{10}$",
+//            message = "Mobile number must be exactly 10 digits"
+//    )
     private String mobile;
+
+    // Getters and setters
 
     public Long getId() {
         return id;
