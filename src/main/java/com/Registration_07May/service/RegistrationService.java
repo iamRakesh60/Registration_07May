@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RegistrationService {
@@ -25,7 +26,7 @@ public class RegistrationService {
 
     //Post Registration
     public RegistrationDto createRegistration(RegistrationDto dto){
-        Registration reg = mapToEntity(dto);
+        Registration reg = mapToDto(dto);
 
         Registration saveReg = registrationRepository.save(reg);
 
@@ -33,12 +34,12 @@ public class RegistrationService {
 //        kyc.setPan(dto.getPan());
 //        kycRepository.save(kyc);
 
-        RegistrationDto dto1 = mapToEntity(saveReg);
+        RegistrationDto dto1 = mapToDto(saveReg);
 
         return dto1;
     }
 
-    Registration mapToEntity(RegistrationDto dto){
+    Registration mapToDto(RegistrationDto dto){
         Registration reg = modelMapper.map(dto, Registration.class);
 //        Registration reg = new Registration();
 //        reg.setName(dto.getName());
@@ -46,7 +47,7 @@ public class RegistrationService {
 //        reg.setMobile(dto.getMobile());
         return reg;
     }
-    RegistrationDto mapToEntity(Registration registration){
+    RegistrationDto mapToDto(Registration registration){
         RegistrationDto dto = modelMapper.map(registration, RegistrationDto.class);
 //        RegistrationDto dto = new RegistrationDto();
 //        dto.setName(registration.getName());
@@ -65,8 +66,11 @@ public class RegistrationService {
     }
 
     // get Registration
-    public List<Registration> getRegistrationList(){
-        return registrationRepository.findAll();
+    public List<RegistrationDto> getRegistrationList(){
+       List<Registration> registrations = registrationRepository.findAll();
+       // Registration object in add in RegistrationDto using java 8
+        List<RegistrationDto> dtos = registrations.stream().map(e -> mapToDto(e)).collect(Collectors.toList());
+        return dtos;
     }
 
 

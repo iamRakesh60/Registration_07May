@@ -30,9 +30,9 @@ public class RegistrationController {
     }
 
     @GetMapping
-    private ResponseEntity <List<Registration>> registrationList(){
-        List<Registration> registrationList = registrationService.getRegistrationList();
-        return new ResponseEntity<>(registrationList, HttpStatus.FOUND);
+    private ResponseEntity <List<RegistrationDto>> registrationList(){
+        List<RegistrationDto> dtos = registrationService.getRegistrationList();
+        return new ResponseEntity<>(dtos, HttpStatus.FOUND);
     }
 
     @PutMapping("{id}")
