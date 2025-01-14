@@ -47,4 +47,9 @@ public class RegistrationController {
         }
     }
 
+    @GetMapping("/{ID}")
+    public ResponseEntity<RegistrationDto> getRegistrationByID(@PathVariable("ID") long id){
+       RegistrationDto dto =  registrationService.getRegistrationByID(id);
+       return new ResponseEntity<>(dto, HttpStatus.FOUND);
+    }
 }

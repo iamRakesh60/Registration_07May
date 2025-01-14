@@ -4,17 +4,19 @@ import lombok.*;
 
 public class RegistrationDto {
 
+    private Long id;
     private String name;
     private String email;
     private String mobile;
-    private String pan;
+   // private String pan;
 
-    public String getPan() {
-        return pan;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setPan(String pan) {
-        this.pan = pan;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

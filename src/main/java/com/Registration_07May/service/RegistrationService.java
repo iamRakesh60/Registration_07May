@@ -2,6 +2,7 @@ package com.Registration_07May.service;
 
 //import com.Registration_07May.entity.KYC;
 import com.Registration_07May.entity.Registration;
+import com.Registration_07May.exception.ResourceNotFoundException;
 import com.Registration_07May.payload.RegistrationDto;
 //import com.Registration_07May.repository.KYCRepository;
 import com.Registration_07May.repository.RegistrationRepository;
@@ -86,5 +87,12 @@ public class RegistrationService {
 
         // Save the updated registration
         return registrationRepository.save(existingReg);
+    }
+
+    public RegistrationDto getRegistrationByID(long id) {
+        Registration registration = registrationRepository.findById(id).orElseThrow(
+                ()-> new ResourceNotFoundException("Record is not found")
+        );
+        return mapToDto(registration);
     }
 }
