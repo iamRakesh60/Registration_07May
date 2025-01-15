@@ -3,10 +3,13 @@ package com.Registration_07May.controller;
 import com.Registration_07May.entity.Registration;
 import com.Registration_07May.payload.RegistrationDto;
 import com.Registration_07May.service.RegistrationService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.Binding;
 import java.util.List;
 
 @RestController
@@ -18,7 +21,12 @@ public class RegistrationController {
     }
 
     @PostMapping
-    private ResponseEntity<RegistrationDto> createRegistration(@RequestBody RegistrationDto dto){
+    private ResponseEntity<?> createRegistration(
+            @Valid @RequestBody RegistrationDto dto,
+            BindingResult result){
+        if(result.hasErrors()){
+            return new ResponseEntity<>(result.getFieldError().getField(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         RegistrationDto reg = registrationService.createRegistration(dto);
         return new ResponseEntity<>(reg,HttpStatus.CREATED);
     }
