@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.naming.Binding;
 import java.util.List;
 
 @RestController
@@ -25,7 +23,7 @@ public class RegistrationController {
             @Valid @RequestBody RegistrationDto dto,
             BindingResult result){
         if(result.hasErrors()){
-            return new ResponseEntity<>(result.getFieldError().getField(),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(result.getFieldError().getDefaultMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
         RegistrationDto reg = registrationService.createRegistration(dto);
         return new ResponseEntity<>(reg,HttpStatus.CREATED);
